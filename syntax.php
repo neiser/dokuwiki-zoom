@@ -62,10 +62,9 @@ class syntax_plugin_zoom extends DokuWiki_Syntax_Plugin {
 			if (substr($match,-1,1) == ' ') {
 				$data['align'] = 3;
 			}
-			else
-				{
-					$data['align'] = 1;
-				}
+			else {
+				$data['align'] = 1;
+			}
 		}
 		elseif (substr($match,-1,1) == ' ') {
 			$data['align'] = 2;
@@ -123,11 +122,11 @@ class syntax_plugin_zoom extends DokuWiki_Syntax_Plugin {
 			{
 				if(preg_match('/\b[xX](\d+)\b/',$params,$match)){
 					$data['height']  = $match[1];
-					$data['width'] = $match[1]*$data['imageWidth']/$data['imageHeight'];
+					$data['width'] = round($match[1]*$data['imageWidth']/$data['imageHeight']);
 				}	
 				else if(preg_match('/\b(\d+)\b/',$params,$match)){
 					$data['width']  = $match[1];
-					$data['height'] = $match[1]*$data['imageHeight']/$data['imageWidth'];
+					$data['height'] = round($match[1]*$data['imageHeight']/$data['imageWidth']);
 				}
 			}
 		return $data;
@@ -159,7 +158,8 @@ class syntax_plugin_zoom extends DokuWiki_Syntax_Plugin {
 			$align = 'cloud-zoom-float-left';
 			break;				
 		}
-		$img = '<div style="' . $style . '" class="' . $align . '"><div style="position:relative;"><a href="'.ml($data['image'], array('w'=>$data['imageWidth'],'h'=>$data['imageHeight'])).'" class="cloud-zoom" rel="' . $data['ext_params'] .'"><img src="'.
+		$img = '<div style="' . $style . '" class="' . $align . '"><div style="position:relative;"><a href="'.
+			ml($data['image'], array('w'=>$data['imageWidth'],'h'=>$data['imageHeight'])).'" class="cloud-zoom" rel="' . $data['ext_params'] .'"><img src="'.
 			ml($data['image'], array('w'=>$data['width'],'h'=>$data['height'])).'" width="'.
 			$data['width'].'" height="'.$data['height'].'" alt="" /></a></div></div>';
 
