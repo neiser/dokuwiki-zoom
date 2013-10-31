@@ -8,7 +8,7 @@
  * and jQuery (jQuery.org)
  */
 
-if(!defined('DOKU_INC')) define('DOKU_INC',realpath(dirname(__FILE__).'/../../').'/');
+if(!defined('DOKU_INC')) die();
 if(!defined('DOKU_PLUGIN')) define('DOKU_PLUGIN',DOKU_INC.'lib/plugins/');
 require_once(DOKU_PLUGIN.'syntax.php');
 
@@ -86,7 +86,7 @@ class syntax_plugin_zoom extends DokuWiki_Syntax_Plugin {
 		}
 		
 		// extract params
-		list($img,$all_params) = explode('?',$match,2);
+		list($img,$all_params) = explode('§',$match,2);
 		// extract params
 		list($params,$ext_params) = explode('&',$all_params,2);
 		$img = trim($img);
@@ -110,7 +110,7 @@ class syntax_plugin_zoom extends DokuWiki_Syntax_Plugin {
 
 		// determine image size,
 		// even if URL is given
-		if(media_isexternal($img)) {
+		if(preg_match('#^(https?|ftp)://#i', $img)) {
 			$data['image'] = $img;
 			list($data['imageWidth'],$data['imageHeight']) = @getimagesize($img);
 		}
@@ -121,7 +121,7 @@ class syntax_plugin_zoom extends DokuWiki_Syntax_Plugin {
 		}
 			
 		// size
-		if(preg_match('/\b(\d+)[xX](\d+)\b/',$params,$match)){
+		if(preg_match('/\b(\d+)[xX](\d+)\b/',$params,$match)) {
 			$data['width']  = $match[1];
 			$data['height'] = $match[2];
 		}
