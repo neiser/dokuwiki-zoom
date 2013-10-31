@@ -86,7 +86,7 @@ class syntax_plugin_zoom extends DokuWiki_Syntax_Plugin {
 		}
 		
 		// extract params
-		list($img,$all_params) = explode('§',$match,2);
+		list($img,$all_params) = explode('|',$match,2);
 		// extract params
 		list($params,$ext_params) = explode('&',$all_params,2);
 		$img = trim($img);
